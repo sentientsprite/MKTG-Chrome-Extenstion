@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Growth Coach</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div id="app">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-left">
+        <img src="icons/icon32.png" alt="AI Growth Coach" class="logo" />
+        <div>
+          <h1 class="app-title">AI Growth Coach</h1>
+          <p class="app-subtitle" id="user-email">Loading...</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn-icon" id="btn-refresh" title="Refresh data">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+            <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+          </svg>
+        </button>
+        <a href="options.html" target="_blank" class="btn-icon" title="Settings">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
+            <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.892 3.433-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.892-1.64-.901-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319z"/>
+          </svg>
+        </a>
+      </div>
+    </header>
+
+    <!-- Sign-in screen -->
+    <div id="signin-screen" class="screen hidden">
+      <div class="signin-content">
+        <div class="signin-icon">🚀</div>
+        <h2>Welcome to AI Growth Coach</h2>
+        <p>Connect your Google account to get AI-powered insights for your business.</p>
+        <button class="btn-primary btn-full" id="btn-signin">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 48 48" style="margin-right:8px">
+            <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+            <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+            <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+            <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+            <path fill="none" d="M0 0h48v48H0z"/>
+          </svg>
+          Sign in with Google
+        </button>
+        <p class="signin-note">We only read your data — we never modify it.</p>
+      </div>
+    </div>
+
+    <!-- Setup screen (after sign-in, before data configured) -->
+    <div id="setup-screen" class="screen hidden">
+      <div class="setup-content">
+        <div class="setup-icon">⚙️</div>
+        <h2>Set Up Your Coach</h2>
+        <p>Open Settings to connect your Google Analytics, Search Console, Google Ads, and Business Profile.</p>
+        <a href="options.html" target="_blank" class="btn-primary btn-full">Open Settings</a>
+      </div>
+    </div>
+
+    <!-- Loading screen -->
+    <div id="loading-screen" class="screen hidden">
+      <div class="loading-content">
+        <div class="spinner"></div>
+        <p id="loading-message">Fetching your data...</p>
+      </div>
+    </div>
+
+    <!-- Main dashboard -->
+    <div id="main-screen" class="screen hidden">
+
+      <!-- Tab navigation -->
+      <nav class="tabs">
+        <button class="tab active" data-tab="dashboard">Dashboard</button>
+        <button class="tab" data-tab="issues">Issues <span id="issue-badge" class="badge hidden">0</span></button>
+        <button class="tab" data-tab="coach">AI Coach</button>
+      </nav>
+
+      <!-- Dashboard tab -->
+      <div id="tab-dashboard" class="tab-content">
+        <div class="last-updated" id="last-updated">Last updated: —</div>
+
+        <!-- Metric cards -->
+        <div class="metrics-grid">
+          <!-- Analytics -->
+          <div class="section-label">Website Traffic</div>
+          <div class="metric-card" id="card-sessions">
+            <div class="metric-label">Sessions</div>
+            <div class="metric-value" id="val-sessions">—</div>
+            <div class="metric-change" id="chg-sessions">—</div>
+          </div>
+          <div class="metric-card" id="card-users">
+            <div class="metric-label">Users</div>
+            <div class="metric-value" id="val-users">—</div>
+            <div class="metric-change" id="chg-users">—</div>
+          </div>
+          <div class="metric-card" id="card-bounce">
+            <div class="metric-label">Bounce Rate</div>
+            <div class="metric-value" id="val-bounce">—</div>
+            <div class="metric-change" id="chg-bounce">—</div>
+          </div>
+          <div class="metric-card" id="card-conversions">
+            <div class="metric-label">Conversions</div>
+            <div class="metric-value" id="val-conversions">—</div>
+            <div class="metric-change" id="chg-conversions">—</div>
+          </div>
+
+          <!-- Search Console -->
+          <div class="section-label">Organic Search</div>
+          <div class="metric-card" id="card-clicks">
+            <div class="metric-label">Search Clicks</div>
+            <div class="metric-value" id="val-clicks">—</div>
+            <div class="metric-change" id="chg-clicks">—</div>
+          </div>
+          <div class="metric-card" id="card-impressions">
+            <div class="metric-label">Impressions</div>
+            <div class="metric-value" id="val-impressions">—</div>
+            <div class="metric-change" id="chg-impressions">—</div>
+          </div>
+          <div class="metric-card" id="card-ctr">
+            <div class="metric-label">Avg CTR</div>
+            <div class="metric-value" id="val-ctr">—</div>
+            <div class="metric-change" id="chg-ctr">—</div>
+          </div>
+          <div class="metric-card" id="card-position">
+            <div class="metric-label">Avg Position</div>
+            <div class="metric-value" id="val-position">—</div>
+            <div class="metric-change" id="chg-position">—</div>
+          </div>
+
+          <!-- Ads -->
+          <div class="section-label" id="ads-section-label" style="display:none">Google Ads</div>
+          <div class="metric-card hidden" id="card-spend">
+            <div class="metric-label">Ad Spend</div>
+            <div class="metric-value" id="val-spend">—</div>
+            <div class="metric-change" id="chg-spend"></div>
+          </div>
+          <div class="metric-card hidden" id="card-ad-conversions">
+            <div class="metric-label">Ad Conversions</div>
+            <div class="metric-value" id="val-ad-conversions">—</div>
+            <div class="metric-change" id="chg-ad-conversions"></div>
+          </div>
+          <div class="metric-card hidden" id="card-cpa">
+            <div class="metric-label">Cost / Conv.</div>
+            <div class="metric-value" id="val-cpa">—</div>
+            <div class="metric-change" id="chg-cpa"></div>
+          </div>
+
+          <!-- GMB -->
+          <div class="section-label" id="gmb-section-label" style="display:none">Google Business</div>
+          <div class="metric-card hidden" id="card-rating">
+            <div class="metric-label">Rating</div>
+            <div class="metric-value" id="val-rating">—</div>
+            <div class="metric-change" id="chg-rating"></div>
+          </div>
+          <div class="metric-card hidden" id="card-reviews">
+            <div class="metric-label">Reviews</div>
+            <div class="metric-value" id="val-reviews">—</div>
+            <div class="metric-change" id="chg-reviews"></div>
+          </div>
+          <div class="metric-card hidden" id="card-gmb-clicks">
+            <div class="metric-label">Website Clicks</div>
+            <div class="metric-value" id="val-gmb-clicks">—</div>
+            <div class="metric-change" id="chg-gmb-clicks"></div>
+          </div>
+        </div>
+
+        <!-- Traffic channels -->
+        <div class="section" id="section-channels" style="display:none">
+          <div class="section-title">Traffic by Channel</div>
+          <div id="channels-list"></div>
+        </div>
+
+        <!-- Top queries -->
+        <div class="section" id="section-queries" style="display:none">
+          <div class="section-title">Top Search Queries</div>
+          <div id="queries-list"></div>
+        </div>
+
+        <!-- Setup prompt if no data sources configured -->
+        <div id="no-data-prompt" class="no-data-prompt hidden">
+          <p>No data sources configured yet.</p>
+          <a href="options.html" target="_blank" class="btn-secondary">Configure in Settings →</a>
+        </div>
+      </div>
+
+      <!-- Issues tab -->
+      <div id="tab-issues" class="tab-content hidden">
+        <div id="issues-list">
+          <div class="empty-state">
+            <div class="empty-icon">✅</div>
+            <p>No issues detected. Your marketing looks healthy!</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI Coach tab -->
+      <div id="tab-coach" class="tab-content hidden">
+        <div id="coach-content">
+          <div class="coach-header">
+            <span class="coach-avatar">🤖</span>
+            <div>
+              <strong>Your AI Growth Coach</strong>
+              <p class="coach-subtext">Powered by OpenAI</p>
+            </div>
+            <button class="btn-icon" id="btn-refresh-advice" title="Refresh advice">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+                <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+              </svg>
+            </button>
+          </div>
+
+          <div id="advice-content" class="advice-content">
+            <div class="advice-placeholder">
+              <button class="btn-primary" id="btn-get-advice">Get AI Growth Advice</button>
+              <p class="advice-note">Requires OpenAI API key in Settings</p>
+            </div>
+          </div>
+
+          <!-- Ask the Coach -->
+          <div class="ask-section">
+            <div class="section-title">Ask the Coach</div>
+            <div class="ask-input-row">
+              <input
+                type="text"
+                id="coach-question"
+                class="ask-input"
+                placeholder="Why did my traffic drop?"
+              />
+              <button class="btn-primary btn-ask" id="btn-ask">Ask</button>
+            </div>
+            <div id="ask-response" class="ask-response hidden"></div>
+          </div>
+        </div>
+
+        <!-- No API key prompt -->
+        <div id="no-ai-prompt" class="no-data-prompt hidden">
+          <p>Add your OpenAI API key to unlock AI advice.</p>
+          <a href="options.html" target="_blank" class="btn-secondary">Open Settings →</a>
+        </div>
+      </div>
+
+    </div><!-- /main-screen -->
+
+    <!-- Error toast -->
+    <div id="error-toast" class="error-toast hidden"></div>
+
+  </div><!-- /app -->
+
+  <script src="popup.js" type="module"></script>
+</body>
+</html>

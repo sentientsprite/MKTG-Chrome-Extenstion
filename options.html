@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Growth Coach — Settings</title>
+  <link rel="stylesheet" href="options.css" />
+</head>
+<body>
+  <div id="app">
+
+    <header class="header">
+      <div class="header-left">
+        <img src="icons/icon48.png" alt="Logo" class="logo" />
+        <div>
+          <h1>AI Growth Coach</h1>
+          <p class="subtitle">Settings &amp; Configuration</p>
+        </div>
+      </div>
+      <div id="auth-status" class="auth-status">
+        <span id="auth-label">Not signed in</span>
+        <button id="btn-auth" class="btn-secondary">Sign In</button>
+      </div>
+    </header>
+
+    <main class="main">
+
+      <!-- Business Info -->
+      <section class="card">
+        <h2 class="card-title">
+          <span class="card-icon">🏪</span>
+          Business Information
+        </h2>
+        <p class="card-desc">Help the AI Coach understand your business context.</p>
+
+        <div class="form-group">
+          <label for="businessName">Business Name</label>
+          <input type="text" id="businessName" placeholder="e.g. Main Street Bakery" />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="industry">Industry</label>
+            <select id="industry">
+              <option value="">Select industry…</option>
+              <option value="restaurant">Restaurant / Food Service</option>
+              <option value="retail">Retail Store</option>
+              <option value="healthcare">Healthcare / Medical</option>
+              <option value="legal">Legal Services</option>
+              <option value="realestate">Real Estate</option>
+              <option value="contractor">Home Services / Contractor</option>
+              <option value="salon">Beauty / Salon / Spa</option>
+              <option value="auto">Auto Services</option>
+              <option value="fitness">Fitness / Wellness</option>
+              <option value="education">Education / Tutoring</option>
+              <option value="ecommerce">E-Commerce</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="location">City / Region</label>
+            <input type="text" id="location" placeholder="e.g. Austin, TX" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="avgOrderValue">Average Order / Lead Value ($)</label>
+          <input type="text" id="avgOrderValue" placeholder="e.g. 150" />
+          <p class="field-hint">Used to evaluate whether your Google Ads cost-per-conversion is profitable. Enter the typical revenue from one sale or lead.</p>
+        </div>
+      </section>
+
+      <!-- Google Analytics 4 -->
+      <section class="card">
+        <h2 class="card-title">
+          <span class="card-icon">📊</span>
+          Google Analytics 4
+        </h2>
+        <p class="card-desc">Track website traffic, user behaviour, and conversion events.</p>
+
+        <div class="form-group">
+          <label for="ga4PropertyId">GA4 Property ID</label>
+          <div class="input-row">
+            <input type="text" id="ga4PropertyId" placeholder="e.g. 123456789" />
+            <button class="btn-secondary" id="btn-discover-ga4">Discover</button>
+          </div>
+          <p class="field-hint">Find this in Google Analytics → Admin → Property → Property Details.</p>
+        </div>
+
+        <!-- Property picker dropdown -->
+        <div id="ga4-picker" class="picker hidden">
+          <p class="picker-label">Select a property:</p>
+          <div id="ga4-list" class="picker-list"></div>
+        </div>
+      </section>
+
+      <!-- Google Search Console -->
+      <section class="card">
+        <h2 class="card-title">
+          <span class="card-icon">🔍</span>
+          Google Search Console
+        </h2>
+        <p class="card-desc">Monitor organic search traffic, keyword rankings, and indexing issues.</p>
+
+        <div class="form-group">
+          <label for="searchConsoleSite">Site URL</label>
+          <div class="input-row">
+            <input type="text" id="searchConsoleSite" placeholder="e.g. https://example.com/" />
+            <button class="btn-secondary" id="btn-discover-sc">Discover</button>
+          </div>
+          <p class="field-hint">Must be a verified property in Google Search Console. Include the trailing slash.</p>
+        </div>
+
+        <div id="sc-picker" class="picker hidden">
+          <p class="picker-label">Select a site:</p>
+          <div id="sc-list" class="picker-list"></div>
+        </div>
+      </section>
+
+      <!-- Google Ads -->
+      <section class="card">
+        <h2 class="card-title">
+          <span class="card-icon">📢</span>
+          Google Ads
+        </h2>
+        <p class="card-desc">Track ad spend, campaign performance, and lead quality.</p>
+
+        <div class="form-group">
+          <label for="adsCustomerId">Customer ID</label>
+          <input type="text" id="adsCustomerId" placeholder="e.g. 123-456-7890" />
+          <p class="field-hint">Find this in Google Ads → top-right corner under your account name.</p>
+        </div>
+
+        <div class="form-group">
+          <label for="adsDeveloperToken">Developer Token</label>
+          <input type="password" id="adsDeveloperToken" placeholder="Your Google Ads Developer Token" />
+          <p class="field-hint">Required for API access. Apply at <a href="https://developers.google.com/google-ads/api/docs/first-call/dev-token" target="_blank" class="link">developers.google.com</a>.</p>
+        </div>
+      </section>
+
+      <!-- Google Business Profile -->
+      <section class="card">
+        <h2 class="card-title">
+          <span class="card-icon">📍</span>
+          Google Business Profile
+        </h2>
+        <p class="card-desc">Track local search impressions, reviews, and customer actions.</p>
+
+        <div class="form-group">
+          <label for="gmbLocationName">Location Resource Name</label>
+          <div class="input-row">
+            <input type="text" id="gmbLocationName" placeholder="accounts/123/locations/456" />
+            <button class="btn-secondary" id="btn-discover-gmb">Discover</button>
+          </div>
+          <p class="field-hint">Click Discover to automatically find your business listing.</p>
+        </div>
+
+        <div id="gmb-picker" class="picker hidden">
+          <p class="picker-label">Select your business:</p>
+          <div id="gmb-list" class="picker-list"></div>
+        </div>
+      </section>
+
+      <!-- AI Coach (OpenAI) -->
+      <section class="card">
+        <h2 class="card-title">
+          <span class="card-icon">🤖</span>
+          AI Coach (OpenAI)
+        </h2>
+        <p class="card-desc">Power AI-generated insights and advice with your OpenAI API key.</p>
+
+        <div class="form-group">
+          <label for="openAiApiKey">OpenAI API Key</label>
+          <input type="password" id="openAiApiKey" placeholder="sk-..." />
+          <p class="field-hint">Get your key at <a href="https://platform.openai.com/api-keys" target="_blank" class="link">platform.openai.com/api-keys</a>. Uses gpt-4o-mini for cost efficiency.</p>
+        </div>
+      </section>
+
+      <!-- Save button -->
+      <div class="save-row">
+        <button class="btn-primary" id="btn-save">Save Settings</button>
+        <div id="save-status" class="save-status"></div>
+      </div>
+
+      <!-- Sign out -->
+      <div class="signout-row">
+        <button class="btn-danger" id="btn-signout">Sign Out & Clear Data</button>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="options.js" type="module"></script>
+</body>
+</html>
