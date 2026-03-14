@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "name": "AI Growth Coach - SMB Analytics Assistant",
+  "version": "1.0.0",
+  "description": "Your AI-powered growth coach for Google Analytics insights and actionable marketing advice",
+  "permissions": [
+    "identity",
+    "storage",
+    "activeTab",
+    "alarms"
+  ],
+  "host_permissions": [
+    "https://analyticsreporting.googleapis.com/*",
+    "https://www.googleapis.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "AI Growth Coach"
+  },
+  "oauth2": {
+    "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/analytics.readonly"
+    ]
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' https://cdn.jsdelivr.net; object-src 'self';"
+  }
+}
