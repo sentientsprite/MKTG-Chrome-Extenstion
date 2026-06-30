@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — AI Growth Coach</title>
+  <style>
+    :root {
+      --text: #1a1a2e;
+      --muted: #5c6370;
+      --border: #e9ecef;
+      --accent: #4facfe;
+      --bg: #f8f9fa;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+      padding: 40px 20px;
+    }
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 12px;
+      padding: 40px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+    h1 { font-size: 28px; margin-bottom: 8px; }
+    .meta { color: var(--muted); font-size: 14px; margin-bottom: 32px; }
+    h2 { font-size: 18px; margin: 28px 0 12px; color: var(--text); }
+    p, li { font-size: 15px; color: #333; margin-bottom: 12px; }
+    ul { padding-left: 24px; margin-bottom: 16px; }
+    table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+    th, td { border: 1px solid var(--border); padding: 10px 12px; text-align: left; }
+    th { background: var(--bg); font-weight: 600; }
+    a { color: var(--accent); }
+    .summary {
+      background: #eef7ff;
+      border-left: 4px solid var(--accent);
+      padding: 16px 20px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 24px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Privacy Policy</h1>
+    <p class="meta">AI Growth Coach · Last updated June 30, 2026</p>
+
+    <div class="summary">
+      <strong>Summary:</strong> AI Growth Coach runs entirely in your browser. We do not operate backend servers.
+      Your marketing data is fetched directly from Google APIs. AI features use <strong>your own OpenAI API key</strong>
+      — requests go directly from your device to OpenAI, not through us.
+    </div>
+
+    <h2>What data we access</h2>
+    <p>When you sign in with Google and configure data sources, the extension may read:</p>
+    <ul>
+      <li><strong>Google Analytics 4</strong> — traffic, engagement, and conversion metrics</li>
+      <li><strong>Google Search Console</strong> — organic search clicks, impressions, rankings</li>
+      <li><strong>Google Ads</strong> (optional) — ad spend, clicks, conversions</li>
+      <li><strong>Google Business Profile</strong> (optional) — reviews, ratings, listing performance</li>
+      <li><strong>Google account</strong> — email and name for display in the UI</li>
+    </ul>
+
+    <h2>What we store locally</h2>
+    <table>
+      <tr><th>Data</th><th>Location</th><th>Retention</th></tr>
+      <tr><td>OAuth tokens</td><td>Chrome identity API</td><td>Until sign-out</td></tr>
+      <tr><td>Settings & API keys</td><td>chrome.storage.sync</td><td>Until uninstall</td></tr>
+      <tr><td>Cached metrics</td><td>chrome.storage.local</td><td>Up to 15 minutes</td></tr>
+      <tr><td>Cached AI advice</td><td>chrome.storage.local</td><td>Up to 1 hour</td></tr>
+    </table>
+
+    <h2>OpenAI — bring your own key</h2>
+    <p>
+      AI Coach features require an OpenAI API key that <strong>you</strong> provide in Settings.
+      Marketing metric summaries are sent <strong>directly from your browser</strong> to OpenAI.
+      We do not proxy, log, or store these requests. You are billed by OpenAI per your account terms.
+      <a href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener">OpenAI Privacy Policy</a>
+    </p>
+
+    <h2>What we do not do</h2>
+    <ul>
+      <li>Sell or share your data with third parties</li>
+      <li>Run tracking or analytics on users</li>
+      <li>Modify your Google marketing accounts (read-only access)</li>
+      <li>Store your data on servers we control</li>
+    </ul>
+
+    <h2>Your choices</h2>
+    <ul>
+      <li>Sign out in Settings to revoke OAuth tokens</li>
+      <li>Remove your OpenAI API key to disable AI features</li>
+      <li>Revoke access at <a href="https://myaccount.google.com/permissions">Google Account permissions</a></li>
+      <li>Uninstall the extension to delete all local data</li>
+    </ul>
+
+    <h2>Contact</h2>
+    <p>
+      Questions? <a href="https://github.com/sentientsprite/MKTG-Chrome-Extenstion/issues">Open a GitHub issue</a>
+    </p>
+  </div>
+</body>
+</html>

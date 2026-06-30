@@ -37,6 +37,8 @@ function getFormValues() {
     const el = document.getElementById(field);
     if (el) values[field] = el.value.trim();
   }
+  const demoEl = document.getElementById('demoMode');
+  if (demoEl) values.demoMode = demoEl.checked;
   return values;
 }
 
@@ -47,6 +49,8 @@ function setFormValues(settings) {
       el.value = settings[field];
     }
   }
+  const demoEl = document.getElementById('demoMode');
+  if (demoEl) demoEl.checked = Boolean(settings.demoMode);
 }
 
 // ── Auth UI ───────────────────────────────────────────────────────────────────

@@ -154,6 +154,24 @@ The extension automatically detects the following issues:
 - No data is sent to any third-party servers (other than Google APIs and OpenAI)
 - OAuth tokens are managed by Chrome's identity API and are never stored in plain text
 - API keys are stored in `chrome.storage.sync` (encrypted by Chrome)
+- Full policy: [docs/PRIVACY.md](./docs/PRIVACY.md) · Hostable HTML: [docs/privacy-policy.html](./docs/privacy-policy.html)
+
+---
+
+## Chrome Web Store
+
+Ready to publish? See the deployment guides:
+
+| Guide | Description |
+|---|---|
+| [STORE_DEPLOYMENT.md](./docs/STORE_DEPLOYMENT.md) | Full checklist from ZIP to review submission |
+| [OAUTH_SETUP.md](./docs/OAUTH_SETUP.md) | Google OAuth client setup (dev + production) |
+| [STORE_LISTING.md](./docs/STORE_LISTING.md) | Pre-written listing copy including BYOK disclosure |
+| [store/README.md](./store/README.md) | Screenshot capture instructions |
+
+### Demo mode for screenshots
+
+Enable **Demo mode** in Settings to preview realistic sample data without API credentials — useful for store screenshots.
 
 ---
 

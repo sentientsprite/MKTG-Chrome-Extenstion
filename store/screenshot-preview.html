@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI Growth Coach — Screenshot Preview</title>
+  <link rel="stylesheet" href="../popup.css" />
+  <style>
+    html, body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+    }
+    #app {
+      width: 400px;
+      height: 600px;
+      box-shadow: 0 24px 48px rgba(0,0,0,0.25);
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--color-bg);
+    }
+    .demo-banner {
+      background: #fff3cd;
+      color: #856404;
+      font-size: 11px;
+      text-align: center;
+      padding: 6px;
+      border-bottom: 1px solid #ffc107;
+    }
+    .advice-text {
+      font-size: 13px;
+      line-height: 1.55;
+      white-space: pre-wrap;
+      color: var(--color-text);
+    }
+    .ask-response {
+      margin-top: 12px;
+      padding: 12px;
+      background: var(--color-surface-2);
+      border-radius: var(--radius);
+      font-size: 13px;
+      line-height: 1.5;
+      border-left: 3px solid var(--color-primary);
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="demo-banner">Demo preview — for Chrome Web Store screenshots</div>
+
+    <header class="header">
+      <div class="header-left">
+        <img src="../icons/icon32.png" alt="" class="logo" />
+        <div>
+          <h1 class="app-title">AI Growth Coach</h1>
+          <p class="app-subtitle">owner@mainstreetbakery.com</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn-icon" title="Refresh">↻</button>
+        <button class="btn-icon" title="Settings">⚙</button>
+      </div>
+    </header>
+
+    <nav class="tabs">
+      <button class="tab active" data-tab="dashboard">Dashboard</button>
+      <button class="tab" data-tab="issues">Issues <span class="badge">4</span></button>
+      <button class="tab" data-tab="coach">AI Coach</button>
+    </nav>
+
+    <!-- Dashboard -->
+    <div id="tab-dashboard" class="tab-content" style="flex:1;overflow-y:auto;padding:16px">
+      <div class="last-updated">Last updated: 2:34 PM</div>
+      <div class="metrics-grid">
+        <div class="section-label">Website Traffic</div>
+        <div class="metric-card">
+          <div class="metric-label">Sessions</div>
+          <div class="metric-value">8.4K</div>
+          <div class="metric-change down">-25.1% vs prev period</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Users</div>
+          <div class="metric-value">6.3K</div>
+          <div class="metric-change down">-29.0% vs prev period</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Bounce Rate</div>
+          <div class="metric-value">58.0%</div>
+          <div class="metric-change down">+18.4% vs prev period</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Conversions</div>
+          <div class="metric-value">186</div>
+          <div class="metric-change down">-25.0% vs prev period</div>
+        </div>
+
+        <div class="section-label">Organic Search</div>
+        <div class="metric-card">
+          <div class="metric-label">Search Clicks</div>
+          <div class="metric-value">2.8K</div>
+          <div class="metric-change down">-21.5% vs prev period</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Impressions</div>
+          <div class="metric-value">48.2K</div>
+          <div class="metric-change down">-7.5% vs prev period</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Avg CTR</div>
+          <div class="metric-value">5.9%</div>
+          <div class="metric-change down">-15.3% vs prev period</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Avg Position</div>
+          <div class="metric-value">12.4</div>
+          <div class="metric-change down">+26.5% vs prev period</div>
+        </div>
+
+        <div class="section-label">Google Ads</div>
+        <div class="metric-card">
+          <div class="metric-label">Ad Spend</div>
+          <div class="metric-value">$1843</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Ad Conversions</div>
+          <div class="metric-value">42</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Cost / Conv.</div>
+          <div class="metric-value">$43.87</div>
+        </div>
+
+        <div class="section-label">Google Business</div>
+        <div class="metric-card">
+          <div class="metric-label">Rating</div>
+          <div class="metric-value">3.7 ⭐</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Reviews</div>
+          <div class="metric-value">128</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Website Clicks</div>
+          <div class="metric-value">340</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Issues -->
+    <div id="tab-issues" class="tab-content hidden" style="flex:1;overflow-y:auto;padding:16px">
+      <div class="issue-card critical">
+        <div class="issue-header">
+          <span class="issue-badge critical">critical</span>
+          <span class="issue-title">Significant Traffic Drop</span>
+        </div>
+        <p class="issue-desc">Sessions dropped 25.1% compared to the previous period (8,420 vs 11,240).</p>
+        <ul class="issue-actions">
+          <li>Check for technical issues (404 errors, server downtime)</li>
+          <li>Review recent website changes</li>
+          <li>Check Search Console for indexing issues</li>
+        </ul>
+      </div>
+      <div class="issue-card critical">
+        <div class="issue-header">
+          <span class="issue-badge critical">critical</span>
+          <span class="issue-title">Conversion Rate Declined</span>
+        </div>
+        <p class="issue-desc">Conversions dropped 25.0% compared to the previous period.</p>
+        <ul class="issue-actions">
+          <li>Test contact forms and checkout flows</li>
+          <li>Review landing page changes</li>
+        </ul>
+      </div>
+      <div class="issue-card warning">
+        <div class="issue-header">
+          <span class="issue-badge warning">warning</span>
+          <span class="issue-title">Below-Average Review Rating</span>
+        </div>
+        <p class="issue-desc">Your Google rating is 3.7 stars. Most customers expect 4.0+ before choosing a local business.</p>
+      </div>
+      <div class="issue-card warning">
+        <div class="issue-header">
+          <span class="issue-badge warning">warning</span>
+          <span class="issue-title">High Cost Per Conversion</span>
+        </div>
+        <p class="issue-desc">Cost per conversion ($43.87) is close to your estimated order value ($45).</p>
+      </div>
+    </div>
+
+    <!-- AI Coach -->
+    <div id="tab-coach" class="tab-content hidden" style="flex:1;overflow-y:auto;padding:16px">
+      <div class="coach-header">
+        <span class="coach-avatar">🤖</span>
+        <div>
+          <strong>Your AI Growth Coach</strong>
+          <p class="coach-subtext">Powered by your OpenAI API key</p>
+        </div>
+      </div>
+      <div class="advice-content advice-text">Marketing Health Diagnosis
+
+Main Street Bakery is facing a meaningful traffic and conversion decline. Your local rating (3.7★) is below what most diners expect.
+
+Top 3 Actions This Week:
+• Fix your top 5 landing pages — sessions down 25%
+• Respond to all 5 unanswered reviews
+• Pause ad keywords with CPA above $35
+
+Quick Win: Post a Google Business update with today's fresh pastries photo.</div>
+      <div class="ask-section" style="margin-top:16px">
+        <div class="section-title">Ask the Coach</div>
+        <div class="ask-input-row">
+          <input class="ask-input" value="Why did my traffic drop?" readonly />
+          <button class="btn-primary btn-ask">Ask</button>
+        </div>
+        <div class="ask-response">Your traffic drop is primarily driven by organic search — clicks fell 21.5%. Check Search Console → Performance → Pages to see which URLs lost the most clicks.</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(location.search);
+    const initialTab = params.get('tab') || 'dashboard';
+
+    function showTab(name) {
+      document.querySelectorAll('.tab').forEach(t =>
+        t.classList.toggle('active', t.dataset.tab === name));
+      document.querySelectorAll('.tab-content').forEach(tc => tc.classList.add('hidden'));
+      document.getElementById('tab-' + name)?.classList.remove('hidden');
+    }
+
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => showTab(tab.dataset.tab));
+    });
+
+    showTab(initialTab);
+  </script>
+</body>
+</html>

@@ -51,6 +51,8 @@
           Sign in with Google
         </button>
         <p class="signin-note">We only read your data — we never modify it.</p>
+        <p class="signin-note signin-byok">AI features use <strong>your own OpenAI API key</strong> — requests go directly from your browser to OpenAI.</p>
+        <p class="signin-note"><a href="https://github.com/sentientsprite/MKTG-Chrome-Extenstion/blob/main/docs/PRIVACY.md" target="_blank" class="link-muted">Privacy Policy</a></p>
       </div>
     </div>
 
@@ -207,7 +209,7 @@
             <span class="coach-avatar">🤖</span>
             <div>
               <strong>Your AI Growth Coach</strong>
-              <p class="coach-subtext">Powered by OpenAI</p>
+              <p class="coach-subtext">Powered by your OpenAI API key (BYOK)</p>
             </div>
             <button class="btn-icon" id="btn-refresh-advice" title="Refresh advice">
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
@@ -220,7 +222,7 @@
           <div id="advice-content" class="advice-content">
             <div class="advice-placeholder">
               <button class="btn-primary" id="btn-get-advice">Get AI Growth Advice</button>
-              <p class="advice-note">Requires OpenAI API key in Settings</p>
+              <p class="advice-note">Bring your own OpenAI API key — we never proxy AI requests</p>
             </div>
           </div>
 
@@ -242,7 +244,7 @@
 
         <!-- No API key prompt -->
         <div id="no-ai-prompt" class="no-data-prompt hidden">
-          <p>Add your OpenAI API key to unlock AI advice.</p>
+          <p>Add your own OpenAI API key to unlock AI advice. Requests go directly from your browser to OpenAI.</p>
           <a href="options.html" target="_blank" class="btn-secondary">Open Settings →</a>
         </div>
       </div>

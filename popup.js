@@ -77,6 +77,23 @@ function setLoadingMessage(msg) {
   if (el) el.textContent = msg;
 }
 
+function showDemoBanner() {
+  if (document.getElementById('demo-banner')) return;
+  const banner = document.createElement('div');
+  banner.id = 'demo-banner';
+  banner.className = 'demo-banner';
+  banner.textContent = 'Demo mode — sample data for screenshots. Disable in Settings.';
+  document.getElementById('app')?.insertBefore(banner, document.querySelector('.header'));
+}
+
+function showOAuthWarning() {
+  const note = document.querySelector('.signin-note');
+  if (note) {
+    note.innerHTML =
+      'OAuth is not configured yet. Add your Client ID to <code>manifest.json</code> — see <a href="https://github.com/sentientsprite/MKTG-Chrome-Extenstion/blob/main/docs/OAUTH_SETUP.md" target="_blank">setup guide</a>. Or enable Demo mode in Settings.';
+  }
+}
+
 // ── Init ──────────────────────────────────────────────────────────────────────
 
 async function init() {
@@ -84,8 +101,20 @@ async function init() {
   setLoadingMessage('Checking authentication...');
 
   try {
-    const { isSignedIn, user } = await sendMessage('GET_AUTH_STATUS');
+    const settings = await sendMessage('GET_SETTINGS');
+
+    if (settings?.demoMode) {
+      const emailEl = document.getElementById('user-email');
+      if (emailEl) emailEl.textContent = 'Demo — Main Street Bakery';
+      showDemoBanner();
+      showScreen('main-screen');
+      await loadData();
+      return;
+    }
+
+    const { isSignedIn, user, oauthConfigured } = await sendMessage('GET_AUTH_STATUS');
     if (!isSignedIn) {
+      if (oauthConfigured === false) showOAuthWarning();
       showScreen('signin-screen');
       return;
     }
@@ -95,7 +124,6 @@ async function init() {
     if (emailEl) emailEl.textContent = user?.email || user?.name || 'Signed in';
 
     // Check if data sources are configured
-    const settings = await sendMessage('GET_SETTINGS');
     const hasConfig = settings?.ga4PropertyId || settings?.searchConsoleSite;
 
     if (!hasConfig) {
@@ -131,7 +159,7 @@ async function loadData(forceRefresh = false) {
 
     // Check AI key setting and show appropriate UI
     const settings = await sendMessage('GET_SETTINGS');
-    if (settings?.openAiApiKey) {
+    if (settings?.openAiApiKey || settings?.demoMode) {
       document.getElementById('no-ai-prompt')?.classList.add('hidden');
       document.getElementById('coach-content')?.classList.remove('hidden');
     } else {

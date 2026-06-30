@@ -125,6 +125,12 @@
         </h2>
         <p class="card-desc">Track ad spend, campaign performance, and lead quality.</p>
 
+        <div class="callout callout-warning">
+          <strong>Google Ads developer token required.</strong>
+          New tokens often receive <em>Test Access</em> only — API calls may fail for production ad accounts until Google approves Basic or Standard access.
+          <a href="https://developers.google.com/google-ads/api/docs/first-call/dev-token" target="_blank" class="link">Apply for a token →</a>
+        </div>
+
         <div class="form-group">
           <label for="adsCustomerId">Customer ID</label>
           <input type="text" id="adsCustomerId" placeholder="e.g. 123-456-7890" />
@@ -169,11 +175,31 @@
         </h2>
         <p class="card-desc">Power AI-generated insights and advice with your OpenAI API key.</p>
 
+        <div class="callout callout-info">
+          <strong>Bring your own key (BYOK).</strong>
+          AI requests go <em>directly from your browser</em> to OpenAI — we do not proxy, log, or charge for AI usage. You pay OpenAI per their pricing.
+        </div>
+
         <div class="form-group">
           <label for="openAiApiKey">OpenAI API Key</label>
           <input type="password" id="openAiApiKey" placeholder="sk-..." />
           <p class="field-hint">Get your key at <a href="https://platform.openai.com/api-keys" target="_blank" class="link">platform.openai.com/api-keys</a>. Uses gpt-4o-mini for cost efficiency.</p>
         </div>
+      </section>
+
+      <!-- Demo mode -->
+      <section class="card">
+        <h2 class="card-title">
+          <span class="card-icon">📸</span>
+          Demo Mode
+        </h2>
+        <p class="card-desc">Preview the extension with realistic sample data — useful for screenshots and testing the UI without API credentials.</p>
+
+        <label class="checkbox-row">
+          <input type="checkbox" id="demoMode" />
+          <span>Enable demo mode (screenshots)</span>
+        </label>
+        <p class="field-hint">When enabled, the popup shows sample data for Main Street Bakery. No Google sign-in or API keys required.</p>
       </section>
 
       <!-- Save button -->
@@ -186,6 +212,14 @@
       <div class="signout-row">
         <button class="btn-danger" id="btn-signout">Sign Out & Clear Data</button>
       </div>
+
+      <footer class="options-footer">
+        <a href="https://github.com/sentientsprite/MKTG-Chrome-Extenstion/blob/main/docs/PRIVACY.md" target="_blank" class="link">Privacy Policy</a>
+        <span>·</span>
+        <a href="https://github.com/sentientsprite/MKTG-Chrome-Extenstion/blob/main/docs/STORE_DEPLOYMENT.md" target="_blank" class="link">Store deployment guide</a>
+        <span>·</span>
+        <a href="https://github.com/sentientsprite/MKTG-Chrome-Extenstion/blob/main/docs/OAUTH_SETUP.md" target="_blank" class="link">OAuth setup</a>
+      </footer>
 
     </main>
   </div>

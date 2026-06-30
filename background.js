@@ -8,6 +8,13 @@ import { getSearchSummary, getTopQueries, getDailySearchPerformance, listSearchC
 import { getCampaignPerformance, getAccountSummary, getDailySpend, listCustomers } from './lib/googleads.js';
 import { listBusinessAccounts, listLocations, getLocationPerformance, getLocationReviews, analyzeReviews } from './lib/gmb.js';
 import { detectIssues, generateAIAdvice, askCoach } from './lib/ai-coach.js';
+import {
+  DEMO_USER,
+  DEMO_DATA,
+  DEMO_ISSUES,
+  DEMO_AI_ADVICE,
+  DEMO_ASK_RESPONSE,
+} from './lib/demo-data.js';
 
 const SCOPES = [
   'https://www.googleapis.com/auth/analytics.readonly',
@@ -105,15 +112,29 @@ async function handleMessage(message) {
 
 // ── Auth actions ─────────────────────────────────────────────────────────────
 
+async function isDemoMode() {
+  const settings = await getSettings();
+  return Boolean(settings.demoMode);
+}
+
 async function getAuthStatus() {
+  if (await isDemoMode()) {
+    return { isSignedIn: true, user: DEMO_USER, demoMode: true };
+  }
+
   try {
     const token = await getAccessToken(false);
-    if (!token) return { isSignedIn: false };
+    if (!token) return { isSignedIn: false, oauthConfigured: isOAuthConfigured() };
     const userInfo = await fetchUserInfo(token);
-    return { isSignedIn: true, user: userInfo };
+    return { isSignedIn: true, user: userInfo, oauthConfigured: true };
   } catch {
-    return { isSignedIn: false };
+    return { isSignedIn: false, oauthConfigured: isOAuthConfigured() };
   }
+}
+
+function isOAuthConfigured() {
+  const clientId = chrome.runtime.getManifest().oauth2?.client_id || '';
+  return clientId && !clientId.includes('YOUR_GOOGLE_OAUTH');
 }
 
 async function signIn() {
@@ -141,13 +162,21 @@ async function fetchUserInfo(token) {
 // ── Data fetching ────────────────────────────────────────────────────────────
 
 async function fetchAllData(forceRefresh = false) {
+  const settings = await getSettings();
+
+  if (settings.demoMode) {
+    return { data: DEMO_DATA, issues: DEMO_ISSUES, errors: {}, demoMode: true };
+  }
+
   const lastFetch = (await chrome.storage.local.get('lastFetch')).lastFetch;
   if (!forceRefresh && lastFetch && (Date.now() - lastFetch) < CACHE_TTL_MS) {
     const cached = (await chrome.storage.local.get('cachedData')).cachedData;
-    if (cached) return { data: cached, fromCache: true };
+    if (cached) {
+      const issues = (await chrome.storage.local.get('cachedIssues')).cachedIssues || [];
+      return { data: cached, issues, fromCache: true };
+    }
   }
 
-  const settings = await getSettings();
   const token = await getAccessToken(false);
   if (!token) throw new Error('Not authenticated. Please sign in.');
 
@@ -271,8 +300,13 @@ async function getDetectedIssues() {
 
 async function getAIAdvice(forceRefresh = false) {
   const settings = await getSettings();
+
+  if (settings.demoMode) {
+    return { advice: DEMO_AI_ADVICE, demoMode: true };
+  }
+
   if (!settings.openAiApiKey) {
-    return { advice: null, error: 'OpenAI API key not configured. Add it in Settings.' };
+    return { advice: null, error: 'OpenAI API key not configured. Add your own key in Settings — we do not provide bundled AI access.' };
   }
 
   const { cachedAdvice, cachedAdviceTime } = await chrome.storage.local.get([
@@ -306,8 +340,13 @@ async function getAIAdvice(forceRefresh = false) {
 
 async function askAICoach(question) {
   const settings = await getSettings();
+
+  if (settings.demoMode) {
+    return { answer: DEMO_ASK_RESPONSE, demoMode: true };
+  }
+
   if (!settings.openAiApiKey) {
-    throw new Error('OpenAI API key not configured. Add it in Settings.');
+    throw new Error('OpenAI API key not configured. Add your own key in Settings.');
   }
 
   const { cachedData } = await chrome.storage.local.get('cachedData');
@@ -394,7 +433,14 @@ chrome.alarms.onAlarm.addListener(async alarm => {
 });
 
 // Set up periodic refresh alarm on install
-chrome.runtime.onInstalled.addListener(scheduleRefreshAlarm);
+chrome.runtime.onInstalled.addListener(details => {
+  scheduleRefreshAlarm();
+  if (!isOAuthConfigured()) {
+    console.warn(
+      '[AI Growth Coach] OAuth Client ID is not configured. See docs/OAUTH_SETUP.md'
+    );
+  }
+});
 
 // Resume alarm on startup
 chrome.runtime.onStartup.addListener(scheduleRefreshAlarm);

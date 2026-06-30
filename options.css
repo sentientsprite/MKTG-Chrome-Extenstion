@@ -282,3 +282,72 @@ select option { background: var(--color-surface); }
 .signout-row {
   margin-top: 8px;
 }
+
+/* ── Callouts ────────────────────────────────────────────────────────────── */
+
+.callout {
+  padding: 12px 14px;
+  border-radius: var(--radius);
+  font-size: 12px;
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.callout-warning {
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  color: #fcd34d;
+}
+
+.callout-info {
+  background: rgba(59, 130, 246, 0.12);
+  border: 1px solid rgba(59, 130, 246, 0.35);
+  color: #93c5fd;
+}
+
+.callout .link {
+  display: inline-block;
+  margin-top: 6px;
+  color: inherit;
+  font-weight: 600;
+}
+
+/* ── Checkbox ────────────────────────────────────────────────────────────── */
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.checkbox-row input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--color-primary);
+}
+
+/* ── Footer ──────────────────────────────────────────────────────────────── */
+
+.options-footer {
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--color-border);
+  text-align: center;
+  font-size: 12px;
+  color: var(--color-text-muted);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.options-footer .link {
+  color: var(--color-text-muted);
+}
+
+.options-footer .link:hover {
+  color: var(--color-primary);
+}
