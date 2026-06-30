@@ -1,33 +1,73 @@
 {
   "manifest_version": 3,
-  "name": "AI Growth Coach - SMB Analytics Assistant",
+  "name": "AI Growth Coach",
   "version": "1.0.0",
-  "description": "Your AI-powered growth coach for Google Analytics insights and actionable marketing advice",
-  "permissions": [
-    "identity",
-    "storage",
-    "activeTab",
-    "alarms"
-  ],
-  "host_permissions": [
-    "https://analyticsreporting.googleapis.com/*",
-    "https://www.googleapis.com/*"
-  ],
+  "description": "AI-powered growth coach for small and local businesses. Integrates with Google Analytics, Ads, Search Console, and Google Business Profile to surface issues and deliver actionable advice.",
+  "author": "AI Growth Coach",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "AI Growth Coach",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
   "background": {
     "service_worker": "background.js",
     "type": "module"
   },
-  "action": {
-    "default_popup": "popup.html",
-    "default_title": "AI Growth Coach"
-  },
+  "options_page": "options.html",
+  "permissions": [
+    "identity",
+    "storage",
+    "alarms",
+    "notifications"
+  ],
+  "host_permissions": [
+    "https://analyticsdata.googleapis.com/*",
+    "https://searchconsole.googleapis.com/*",
+    "https://mybusinessbusinessinformation.googleapis.com/*",
+    "https://mybusinessaccountmanagement.googleapis.com/*",
+    "https://mybusiness.googleapis.com/*",
+    "https://businessprofileperformance.googleapis.com/*",
+    "https://googleads.googleapis.com/*",
+    "https://api.openai.com/*"
+  ],
   "oauth2": {
-    "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com",
+    "client_id": "YOUR_GOOGLE_OAUTH_CLIENT_ID.apps.googleusercontent.com",
     "scopes": [
-      "https://www.googleapis.com/auth/analytics.readonly"
+      "https://www.googleapis.com/auth/analytics.readonly",
+      "https://www.googleapis.com/auth/webmasters.readonly",
+      "https://www.googleapis.com/auth/business.manage",
+      "https://www.googleapis.com/auth/adwords",
+      "https://www.googleapis.com/auth/userinfo.profile",
+      "https://www.googleapis.com/auth/userinfo.email"
     ]
   },
-  "content_security_policy": {
-    "extension_pages": "script-src 'self' https://cdn.jsdelivr.net; object-src 'self';"
-  }
+  "content_scripts": [
+    {
+      "matches": [
+        "https://analytics.google.com/*",
+        "https://ads.google.com/*",
+        "https://search.google.com/search-console/*",
+        "https://business.google.com/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["icons/*.png"],
+      "matches": ["<all_urls>"]
+    }
+  ]
 }
