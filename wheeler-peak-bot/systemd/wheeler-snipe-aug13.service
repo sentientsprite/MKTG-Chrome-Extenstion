@@ -1,0 +1,15 @@
+[Unit]
+Description=Wheeler Peak release sniper (Aug 13 check-in)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/wheeler-peak-bot
+Environment=WHEELER_BOT_CONFIG=%h/wheeler-peak-bot/config.yaml
+ExecStart=%h/wheeler-peak-bot/.venv/bin/wheeler-bot snipe --check-in 2026-08-13
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=default.target
