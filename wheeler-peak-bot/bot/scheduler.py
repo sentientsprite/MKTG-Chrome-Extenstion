@@ -33,11 +33,21 @@ class Scheduler:
             logger.info("Waiting %.0fs until %s", sleep_for, moment.isoformat())
             time.sleep(sleep_for)
 
+    def _priority_for_checkin(self, check_in: date) -> int:
+        for target in self.config.sorted_targets():
+            if target.check_in == check_in:
+                return target.priority
+        return 999
+
+    def _sort_windows_by_priority(self, windows: list[StayWindow]) -> list[StayWindow]:
+        return sorted(windows, key=lambda w: self._priority_for_checkin(w.check_in))
+
     def attempt_windows(self, windows: list[StayWindow]) -> bool:
         if not windows:
             logger.warning("No matching availability windows")
             return False
 
+        windows = self._sort_windows_by_priority(windows)
         seen_sites: set[str] = set()
         for window in windows:
             key = f"{window.site_id}:{window.check_in.isoformat()}"
@@ -114,7 +124,12 @@ class Scheduler:
         if datetime.now(self.config.tz) < release_at:
             self.wait_until(release_at)
 
-        logger.info("Release sniper active for %s", target.check_in)
+        logger.info(
+            "Release sniper active for %s (%s, %s nights)",
+            target.check_in,
+            target.tier,
+            target.nights,
+        )
 
         deadline = release_at + timedelta(minutes=10)
         with AvailabilityClient(self.config) as client:
@@ -153,9 +168,10 @@ class Scheduler:
             return True
 
         check_ins = [t.check_in for t in self.config.sorted_targets()]
+        tiers = {t.check_in: t.tier for t in self.config.sorted_targets()}
         self.notifier.send(
             "Cancellation monitor started",
-            f"Watching {self.config.facility_name} for {check_ins}",
+            f"Watching {self.config.facility_name} for {check_ins} (tiers: {tiers})",
         )
 
         with AvailabilityClient(self.config) as client:
@@ -163,7 +179,7 @@ class Scheduler:
                 if self.already_succeeded():
                     return True
 
-                windows = client.find_matching_windows(check_in_dates=check_ins)
+                windows = client.find_matching_windows(targets=self.config.sorted_targets())
                 if windows:
                     logger.info("Found %d bookable windows", len(windows))
                     if self.attempt_windows(windows):

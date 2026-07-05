@@ -19,8 +19,18 @@ def test_load_config_defaults(tmp_path):
     cfg_path.write_text("facility_id: '10088563'\n", encoding="utf-8")
     config = load_config(cfg_path)
     assert config.facility_id == "10088563"
-    assert len(config.targets) == 2
+    assert len(config.targets) == 4
     assert config.targets[0].check_in == date(2026, 8, 6)
+    assert config.targets[2].check_in == date(2026, 8, 5)
+    assert config.targets[2].tier == "secondary"
+
+
+def test_load_config_from_project_yaml():
+    config = load_config()
+    assert len(config.targets) == 4
+    tiers = [t.tier for t in config.sorted_targets()]
+    assert tiers.count("primary") == 2
+    assert tiers.count("secondary") == 2
 
 
 def test_release_datetime_pacific():

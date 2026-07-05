@@ -106,8 +106,11 @@ def cmd_status(config: BotConfig, _args: argparse.Namespace) -> int:
     releases = [
         {
             "check_in": t.check_in.isoformat(),
-            "release_at": config.release_datetime_for_checkin(t.check_in).isoformat(),
+            "check_out": t.check_out.isoformat(),
+            "nights": t.nights,
+            "tier": t.tier,
             "priority": t.priority,
+            "release_at": config.release_datetime_for_checkin(t.check_in).isoformat(),
         }
         for t in config.sorted_targets()
     ]

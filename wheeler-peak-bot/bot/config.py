@@ -14,6 +14,7 @@ class TargetWindow(BaseModel):
     check_in: date
     nights: int = 3
     priority: int = 1
+    tier: str = "primary"  # primary | secondary
 
     @property
     def check_out(self) -> date:
@@ -114,8 +115,10 @@ def load_config(path: str | Path | None = None) -> BotConfig:
 
     if not data.get("targets"):
         data["targets"] = [
-            {"check_in": "2026-08-06", "nights": 3, "priority": 1},
-            {"check_in": "2026-08-13", "nights": 3, "priority": 2},
+            {"check_in": "2026-08-06", "nights": 3, "priority": 1, "tier": "primary"},
+            {"check_in": "2026-08-13", "nights": 3, "priority": 2, "tier": "primary"},
+            {"check_in": "2026-08-05", "nights": 3, "priority": 3, "tier": "secondary"},
+            {"check_in": "2026-08-12", "nights": 3, "priority": 4, "tier": "secondary"},
         ]
 
     return BotConfig.model_validate(data)

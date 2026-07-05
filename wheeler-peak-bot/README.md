@@ -2,7 +2,11 @@
 
 Automated reservation helper for [Wheeler Peak Campground](https://www.recreation.gov/camping/campgrounds/10088563) (Great Basin National Park) on Recreation.gov.
 
-**Goal:** Secure a 3-night Thu→Sun stay (Aug 6–9 or Aug 13–16, 2026) by hitting the 30-day release windows and monitoring cancellations until success.
+**Goal:** Secure a 3-night stay on either:
+- **Primary:** Thu→Sun (Aug 6–9 or Aug 13–16, 2026)
+- **Secondary contingency:** Wed→Sat (Aug 5–8 or Aug 12–15, 2026)
+
+The bot hits all four 30-day release windows and monitors cancellations until success.
 
 ## Important
 
@@ -13,10 +17,14 @@ Automated reservation helper for [Wheeler Peak Campground](https://www.recreatio
 
 ## Critical dates
 
-| Check-in | Checkout | Release opens |
-|----------|----------|---------------|
-| Thu Aug 6, 2026 | Sun Aug 9 | **Tue Jul 7, 2026 @ 7:00 AM PT** |
-| Thu Aug 13, 2026 | Sun Aug 16 | **Tue Jul 14, 2026 @ 7:00 AM PT** |
+| Tier | Check-in | Checkout | Nights | Release opens |
+|------|----------|----------|--------|---------------|
+| Primary | Thu Aug 6, 2026 | Sun Aug 9 | Thu–Sat | **Tue Jul 7 @ 7:00 AM PT** |
+| Primary | Thu Aug 13, 2026 | Sun Aug 16 | Thu–Sat | **Tue Jul 14 @ 7:00 AM PT** |
+| Secondary | Wed Aug 5, 2026 | Sat Aug 8 | Wed–Fri | **Mon Jul 6 @ 7:00 AM PT** |
+| Secondary | Wed Aug 12, 2026 | Sat Aug 15 | Wed–Fri | **Mon Jul 13 @ 7:00 AM PT** |
+
+Priority order: Aug 6 Thu → Aug 13 Thu → Aug 5 Wed → Aug 12 Wed.
 
 ## Quick start
 
@@ -48,7 +56,7 @@ wheeler-bot run             # snipe releases + monitor until success
 
 Edit [`config.yaml`](config.yaml):
 
-- `targets` — check-in dates and priority (Aug 6 first, Aug 13 second)
+- `targets` — check-in dates, nights, priority, and tier (`primary` / `secondary`)
 - `preferred_sites` — ranked site numbers, or `[]` for any site
 - `completion_mode` — `booking` (full checkout) or `cart_only`
 - `release_hour` / `release_minute` — default 7:00 AM PT

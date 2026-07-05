@@ -8,7 +8,7 @@ from urllib.parse import quote
 
 import httpx
 
-from bot.config import BotConfig
+from bot.config import BotConfig, TargetWindow
 from bot.windows import StayWindow, find_three_night_windows, is_available
 
 logger = logging.getLogger(__name__)
@@ -142,30 +142,40 @@ class AvailabilityClient:
         self,
         check_in_dates: list[date] | None = None,
         nights: int | None = None,
+        targets: list[TargetWindow] | None = None,
     ) -> list[StayWindow]:
-        nights = nights or self.config.nights
         from datetime import timedelta
 
-        if check_in_dates:
-            start = min(check_in_dates)
-            end = max(check_in_dates) + timedelta(days=nights + 2)
+        if targets:
+            spec_targets = targets
+        elif check_in_dates:
+            default_nights = nights or self.config.nights
+            spec_targets = [
+                TargetWindow(check_in=d, nights=default_nights, priority=99)
+                for d in check_in_dates
+            ]
         else:
-            start = min(t.check_in for t in self.config.targets)
-            end = max(t.check_in for t in self.config.targets) + timedelta(days=nights + 2)
+            spec_targets = self.config.sorted_targets()
+
+        max_nights = max(t.nights for t in spec_targets)
+        start = min(t.check_in for t in spec_targets)
+        end = max(t.check_in for t in spec_targets) + timedelta(days=max_nights + 2)
 
         sites_by_id = self.fetch_range(self.config.facility_id, start, end)
 
-        if self.config.preferred_sites:
-            preferred = self.config.preferred_sites
-        else:
-            preferred = []
+        preferred = self.config.preferred_sites or None
 
-        return find_three_night_windows(
-            sites_by_id,
-            nights=nights,
-            allowed_site_numbers=preferred or None,
-            check_in_dates=check_in_dates,
-        )
+        results: list[StayWindow] = []
+        for target in spec_targets:
+            results.extend(
+                find_three_night_windows(
+                    sites_by_id,
+                    nights=target.nights,
+                    allowed_site_numbers=preferred,
+                    check_in_dates=[target.check_in],
+                )
+            )
+        return results
 
     def summarize_target(self, target_check_in: date, nights: int) -> dict[str, Any]:
         windows = self.find_matching_windows(check_in_dates=[target_check_in], nights=nights)

@@ -11,14 +11,26 @@ timezone: "America/Los_Angeles"
 release_hour: 7
 release_minute: 0
 
-# Target stay windows (check-in Thu, 3 nights, checkout Sun)
+# Target stay windows — primary Thu→Sun, secondary contingency Wed→Sat (3 nights each)
 targets:
+  # Primary: Thu check-in, 3 nights (Thu/Fri/Sat), checkout Sun
   - check_in: "2026-08-06"
     nights: 3
     priority: 1
+    tier: primary
   - check_in: "2026-08-13"
     nights: 3
     priority: 2
+    tier: primary
+  # Secondary contingency: Wed check-in, 3 nights (Wed/Thu/Fri), checkout Sat
+  - check_in: "2026-08-05"
+    nights: 3
+    priority: 3
+    tier: secondary
+  - check_in: "2026-08-12"
+    nights: 3
+    priority: 4
+    tier: secondary
 
 nights: 3
 max_vehicle_length_ft: 24
