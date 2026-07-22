@@ -30,7 +30,7 @@ for tab in "${TABS[@]}"; do
     --user-data-dir="/tmp/chrome-screenshots-$$" \
     --window-size=1280,800 \
     --screenshot="$OUT_DIR/$(printf '%02d' $i)-${tab}.png" \
-    "$PREVIEW?tab=$tab" 2>/dev/null || true
+    "$PREVIEW?tab=$tab&clean=1" 2>/dev/null || true
   i=$((i + 1))
 done
 

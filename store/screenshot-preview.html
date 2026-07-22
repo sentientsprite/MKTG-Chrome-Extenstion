@@ -30,6 +30,8 @@
       padding: 6px;
       border-bottom: 1px solid #ffc107;
     }
+    /* Hide banner for store captures: ?clean=1 */
+    body.clean .demo-banner { display: none; }
     .advice-text {
       font-size: 13px;
       line-height: 1.55;
@@ -49,7 +51,7 @@
 </head>
 <body>
   <div id="app">
-    <div class="demo-banner">Demo preview — for Chrome Web Store screenshots</div>
+    <div class="demo-banner" id="demo-banner">Demo preview — for Chrome Web Store screenshots</div>
 
     <header class="header">
       <div class="header-left">
@@ -223,6 +225,7 @@ Quick Win: Post a Google Business update with today's fresh pastries photo.</div
   <script>
     const params = new URLSearchParams(location.search);
     const initialTab = params.get('tab') || 'dashboard';
+    if (params.get('clean') === '1') document.body.classList.add('clean');
 
     function showTab(name) {
       document.querySelectorAll('.tab').forEach(t =>

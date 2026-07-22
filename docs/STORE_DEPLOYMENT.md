@@ -7,10 +7,16 @@ Use this checklist to publish **AI Growth Coach** to the Chrome Web Store.
 ## Pre-flight (repo)
 
 - [x] Full extension merged to `main`
-- [ ] Replace OAuth placeholder in `manifest.json` (see [OAUTH_SETUP.md](./OAUTH_SETUP.md))
-- [ ] Host privacy policy and note the public URL (see [PRIVACY.md](./PRIVACY.md))
-- [ ] Capture store screenshots (see [../store/README.md](../store/README.md))
-- [ ] Review store listing copy ([STORE_LISTING.md](./STORE_LISTING.md))
+- [x] Privacy policy drafted (`docs/PRIVACY.md` + `docs/privacy-policy.html`)
+- [x] Store listing copy (`docs/STORE_LISTING.md`)
+- [x] OAuth setup guide (`docs/OAUTH_SETUP.md`)
+- [x] Demo mode + screenshot tooling
+- [x] Store screenshots captured (`store/screenshots/01-dashboard.png`, `02-issues.png`, `03-coach.png`)
+- [x] Packaging script (`scripts/package-extension.sh`)
+- [x] GitHub Pages workflow (`.github/workflows/pages.yml`)
+- [ ] Replace OAuth placeholder in `manifest.json` (after first store draft upload)
+- [ ] Enable GitHub Pages once (see below)
+- [ ] Upload ZIP to Chrome Web Store and submit
 
 ---
 
@@ -52,13 +58,21 @@ zip -r ai-growth-coach-v1.0.0.zip . \
 
 **Required** because the extension accesses Google account data.
 
+### Enable GitHub Pages (one-time, owner account)
+
+The Pages API is blocked for automation tokens. Do this once in the GitHub UI:
+
+1. Open **Settings → Pages** on the repo
+2. Under **Build and deployment**, set Source to **GitHub Actions**
+3. Merge/push to `main` so `.github/workflows/pages.yml` runs
+4. Privacy URL becomes:
+   `https://sentientsprite.github.io/MKTG-Chrome-Extenstion/privacy-policy.html`
+
 ### Option A — GitHub Pages (recommended)
 
 1. Repo → **Settings** → **Pages**
-2. Source: **Deploy from branch** → `main` → `/docs`
+2. Source: **GitHub Actions** (workflow already in repo)
 3. Privacy URL: `https://sentientsprite.github.io/MKTG-Chrome-Extenstion/privacy-policy.html`
-
-> Move or symlink `docs/privacy-policy.html` to the docs root if GitHub Pages serves from `/docs` — the file is already at `docs/privacy-policy.html`.
 
 ### Option B — Your own domain
 
