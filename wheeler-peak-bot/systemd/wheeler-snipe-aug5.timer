@@ -1,0 +1,7 @@
+[Timer]
+Description=Wheeler Peak Aug 5 Wed release (secondary) — 6:48 AM PT
+OnCalendar=2026-07-06 06:48:00 America/Los_Angeles
+Persistent=true
+
+[Install]
+WantedBy=timers.target

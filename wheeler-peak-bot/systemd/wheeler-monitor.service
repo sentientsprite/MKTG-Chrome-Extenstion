@@ -1,0 +1,16 @@
+[Unit]
+Description=Wheeler Peak cancellation monitor
+After=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/wheeler-peak-bot
+Environment=WHEELER_BOT_CONFIG=%h/wheeler-peak-bot/config.yaml
+ExecStart=%h/wheeler-peak-bot/.venv/bin/wheeler-bot run
+Restart=on-failure
+RestartSec=60
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=default.target

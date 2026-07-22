@@ -1,0 +1,65 @@
+# Wheeler Peak Campground reservation bot configuration
+# Defaults per plan — adjust site preferences and notifications as needed.
+
+facility_id: "10088563"
+facility_name: "Wheeler Peak Campground"
+facility_url: "https://www.recreation.gov/camping/campgrounds/10088563"
+timezone: "America/Los_Angeles"
+
+# Release time for 30-day rolling window (Great Basin NP / Wheeler Peak)
+# Configurable — verify on recreation.gov Seasons & Fees if unsure.
+release_hour: 7
+release_minute: 0
+
+# Target stay windows — primary Thu→Sun, secondary contingency Wed→Sat (3 nights each)
+targets:
+  # Primary: Thu check-in, 3 nights (Thu/Fri/Sat), checkout Sun
+  - check_in: "2026-08-06"
+    nights: 3
+    priority: 1
+    tier: primary
+  - check_in: "2026-08-13"
+    nights: 3
+    priority: 2
+    tier: primary
+  # Secondary contingency: Wed check-in, 3 nights (Wed/Thu/Fri), checkout Sat
+  - check_in: "2026-08-05"
+    nights: 3
+    priority: 3
+    tier: secondary
+  - check_in: "2026-08-12"
+    nights: 3
+    priority: 4
+    tier: secondary
+
+nights: 3
+max_vehicle_length_ft: 24
+max_party_size: 8
+
+# Site selection: empty = any site passing filters; or ranked site numbers
+preferred_sites: []
+
+# booking | cart_only
+completion_mode: booking
+
+# Session and state paths (expand ~ at runtime)
+session_path: "~/.wheeler-peak-bot/session.json"
+success_path: "~/.wheeler-peak-bot/success.json"
+log_dir: "~/.wheeler-peak-bot/logs"
+
+# Polling intervals (seconds)
+cancel_poll_interval: 75
+release_poll_interval: 3
+prewarm_seconds: 600
+
+# Safety
+dry_run: false
+max_reservations: 1
+headed: false
+
+# Optional Telegram notifications (leave blank to disable)
+telegram_bot_token: ""
+telegram_chat_id: ""
+
+# Optional webhook URL (Discord/Slack/generic POST)
+webhook_url: ""
